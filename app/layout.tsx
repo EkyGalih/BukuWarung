@@ -73,7 +73,15 @@ export default function RootLayout({
             <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
               {/* Sidebar content here */}
               <li><a>Beranda</a></li>
-              <li><a>Transaksi</a></li>
+              <li>
+                <details>
+                  <summary>Transaksi</summary>
+                  <ul>
+                    <li><a href='/transaksi/penjualan'>Penjualan</a></li>
+                    <li><a>Pembelian</a></li>
+                  </ul>
+                </details>
+              </li>
               <li><a href='/products'>Produk</a></li>
             </ul>
           </div>

@@ -7,10 +7,12 @@ export const PATCH = async (request: Request, { params }: { params: { productId:
     const body: Product = await request.json();
     const product = await prisma.product.update({
         where: {
-            id: Number(params.productId)
+            id: params.productId
         }, data: {
             title: body.title,
             price: body.price,
+            berat: body.berat,
+            satuan: body.satuan,
             brandId: body.brandId
         }
     });
@@ -20,7 +22,7 @@ export const PATCH = async (request: Request, { params }: { params: { productId:
 export const DELETE = async (request: Request, { params }: { params: { productId: string } }) => {
     const product = await prisma.product.delete({
         where: {
-            id: Number(params.productId)
+            id: params.productId
         }
     });
     return NextResponse.json(product, {status: 200});

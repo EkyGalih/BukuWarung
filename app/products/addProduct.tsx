@@ -8,6 +8,8 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
     const [brand, setBrand] = useState("");
+    const [berat, setBerat] = useState("");
+    const [satuan, setSatuan] = useState("");
     const [isOpen, setIsOpen] = useState(false);
 
     const router = useRouter();
@@ -21,10 +23,15 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
         await axios.post('/api/products', {
             title: title,
             price: Number(price),
-            brandId: Number(brand)
+            satuan: satuan,
+            berat: Number(berat),
+            Sold: Number(0),
+            brandId: brand
         })
         setTitle("");
         setPrice("");
+        setSatuan("");
+        setBerat("");
         setBrand("");
         router.refresh();
         setIsOpen(false);
@@ -32,7 +39,7 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
 
     return (
         <div>
-            <button className="btn btn-primary" onClick={handleModal}>
+            <button className="btn btn-primary btn-sm" onClick={handleModal}>
                 <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z" />
                 </svg>
@@ -48,6 +55,14 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
                         <div className="form-control w-full">
                             <label className="label font-bold">Nama Produk</label>
                             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="input input-bordered" placeholder="Nama Produk" />
+                        </div>
+                        <div className="form-control w-full">
+                            <label className="label font-bold">Berat</label>
+                            <input type="text" value={berat} onChange={(e) => setBerat(e.target.value)} className="input input-bordered" placeholder="Berat Produk" />
+                        </div>
+                        <div className="form-control w-full">
+                            <label className="label font-bold">Satuan</label>
+                            <input type="text" value={satuan} onChange={(e) => setSatuan(e.target.value)} className="input input-bordered" placeholder="Satuan" />
                         </div>
                         <div className="form-control w-full">
                             <label className="label font-bold">Harga</label>

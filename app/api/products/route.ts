@@ -9,6 +9,8 @@ export const POST = async (request: Request) => {
         data: {
             title: body.title,
             price: body.price,
+            satuan: body.satuan,
+            berat: body.berat,
             brandId: body.brandId
         }
     });

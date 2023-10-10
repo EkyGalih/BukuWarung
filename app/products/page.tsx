@@ -12,7 +12,9 @@ const getProducts = async () => {
             price: true,
             brandId: true,
             brand: true,
-            Sold: true
+            Sold: true,
+            satuan: true,
+            berat: true,
         },
     });
     return res;
@@ -49,9 +51,9 @@ const Product = async () => {
                         <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{product.title}</td>
-                            <td>{product.satuan}-{product.berat}</td>
+                            <td>{product.berat}/{product.satuan}</td>
                             <td>{product.price}</td>
-                            <td>{Number(product.Sold)}</td>
+                            <td>{product.Sold}</td>
                             <td>{product.brand.name}</td>
                             <td className="flex justify-center space-x-1">
                                 <UpdateProduct brands={brands} product={product}/>
