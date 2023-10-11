@@ -3,6 +3,17 @@ import { PrismaClient } from "@prisma/client";
 import type { Product } from "@prisma/client"; // mengambil type dari model prisma yang dibuat
 const prisma = new PrismaClient();
 
+export const GET = async ({ params }: { params: { productId: string } }) => {
+    console.log(params.productId);
+    
+    const product = await prisma.product.findUnique({
+        where: {
+            id: params.productId
+        }
+    });
+    return NextResponse.json(product, { status: 200 });
+}
+
 export const PATCH = async (request: Request, { params }: { params: { productId: string } }) => {
     const body: Product = await request.json();
     const product = await prisma.product.update({
@@ -16,7 +27,7 @@ export const PATCH = async (request: Request, { params }: { params: { productId:
             brandId: body.brandId
         }
     });
-    return NextResponse.json(product, {status: 200});
+    return NextResponse.json(product, { status: 200 });
 }
 
 export const DELETE = async (request: Request, { params }: { params: { productId: string } }) => {
@@ -25,5 +36,5 @@ export const DELETE = async (request: Request, { params }: { params: { productId
             id: params.productId
         }
     });
-    return NextResponse.json(product, {status: 200});
+    return NextResponse.json(product, { status: 200 });
 }

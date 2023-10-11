@@ -56,8 +56,8 @@ const Product = async () => {
                             <td>{product.Sold}</td>
                             <td>{product.brand.name}</td>
                             <td className="flex justify-center space-x-1">
-                                <UpdateProduct brands={brands} product={product}/>
-                                <DeleteProduct product={product}/>
+                                <UpdateProduct brands={brands} product={product} />
+                                <DeleteProduct product={product} />
                             </td>
                         </tr>
                     ))}

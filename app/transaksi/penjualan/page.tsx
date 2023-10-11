@@ -1,51 +1,65 @@
 import { PrismaClient } from "@prisma/client"
+import AddPenjualan from "./addPenjualan";
 
 const prisma = new PrismaClient();
 
-const getPenjualans = async () => {
-    const res = await prisma.penjualan.findMany({
-        include: {
-            product: true,
-            pembeli: true,
+const getPenjualan = async () => {
+    const res = await prisma.penjualan.findMany();
+    return res;
+};
+
+const getProducts = async () => {
+    const res = await prisma.product.findMany({
+        select: {
+            id: true,
+            title: true,
         }
     });
     return res;
-};
+}
 
-const getBrands = async () => {
-    const res = await prisma.brand.findMany();
+const getPembeli = async () => {
+    const res = await prisma.pembeli.findMany();
     return res;
 };
 
-const Product = async () => {
-    const penjualans = await getPenjualans(); 
-    console.log(penjualans);
-    
+const Penjualan = async () => {
+    const [penjualans, pembelis, products] = await Promise.all([getPenjualan(), getPembeli(), getProducts()]);
 
     return (
         <div>
             <div className="mb-2">
-
+                <AddPenjualan pembelis={pembelis} products={products} />
             </div>
 
             <table className="table w-full">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nama Produk</th>
-                        <th>Berat/Satuan</th>
-                        <th>Harga</th>
-                        <th>Jumlah Terjual</th>
-                        <th>Brand</th>
+                        <th>Nama Pembeli</th>
+                        <th>Tanggal Pembelian</th>
+                        <th>Produk</th>
+                        <th>Keterangan</th>
                         <th className="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    {penjualans.map((penjualan, index) => (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{}</td>
+                            <td>{}</td>
+                            <td>{penjualan.keterangan}</td>
+                            <td className="flex justify-center space-x-1">
+                                {/* <UpdateProduct brands={brands} product={product} />
+                                <DeleteProduct product={product} /> */}
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>
     )
 }
 
-export default Product
+export default Penjualan

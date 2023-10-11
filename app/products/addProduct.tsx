@@ -10,6 +10,7 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
     const [brand, setBrand] = useState("");
     const [berat, setBerat] = useState("");
     const [satuan, setSatuan] = useState("");
+    const [msg, setMsg] = useState("");
     const [isOpen, setIsOpen] = useState(false);
 
     const router = useRouter();
@@ -33,6 +34,7 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
         setSatuan("");
         setBerat("");
         setBrand("");
+        setMsg("Produk berhasil ditambahkan!");
         router.refresh();
         setIsOpen(false);
     };
@@ -45,6 +47,14 @@ const AddProduct = ({ brands }: { brands: Brand[] }) => {
                 </svg>
                 Tambah Produk
             </button>
+
+            {msg !== ''
+                ? <div className="alert alert-success mt-5 mb-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>{msg}</span>
+                </div>
+                : ''
+            }
 
             <div className={isOpen ? 'modal modal-open' : 'modal'}>
                 <div className="modal-box">
