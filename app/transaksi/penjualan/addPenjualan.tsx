@@ -3,6 +3,7 @@ import { SyntheticEvent, useState } from "react";
 import type { Pembeli, Product } from "@prisma/client"; // digunakan untuk memanggil model brand berdasrkan type yang sudah dibuat
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import AddPembeli from "./addPembeli";
 
 const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: Product[] }) => {
     const [pembeli, setPembeli] = useState("");
@@ -25,7 +26,7 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
         const productId = e;
         // const res = await axios.get(`/api/products/${productId}`);
         console.log(e.target);
-        
+
     }
 
     const saveProduct = async (e: SyntheticEvent) => {
@@ -71,6 +72,7 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
                     <h3 className="font-bold text-lg mb-3">
                         Tambah Data Penjualan</h3>
                     <hr />
+                    <AddPembeli />
                     <form onSubmit={saveProduct}>
                         <div className="form-control w-full">
                             <label className="label font-bold">Nama Pembeli</label>
