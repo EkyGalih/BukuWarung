@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Pembelian" ALTER COLUMN "createdAt" SET DEFAULT CURRENT_TIMESTAMP;

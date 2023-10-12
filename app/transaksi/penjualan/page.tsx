@@ -13,6 +13,8 @@ const getProducts = async () => {
         select: {
             id: true,
             title: true,
+            berat: true,
+            satuan: true
         }
     });
     return res;
@@ -45,7 +47,7 @@ const Penjualan = async () => {
                 </thead>
                 <tbody>
                     {penjualans.map((penjualan, index) => (
-                        <tr key={index}>
+                        <tr key={index}>    
                             <td>{index + 1}</td>
                             <td>{}</td>
                             <td>{}</td>

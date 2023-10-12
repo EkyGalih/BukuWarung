@@ -5,13 +5,13 @@ const prisma = new PrismaClient();
 
 export const GET = async ({ params }: { params: { productId: string } }) => {
     console.log(params.productId);
-    
-    const product = await prisma.product.findUnique({
-        where: {
-            id: params.productId
-        }
-    });
-    return NextResponse.json(product, { status: 200 });
+
+    // const product = await prisma.product.findUnique({
+    //     where: {
+    //         id: params.productId
+    //     }
+    // });
+    // return NextResponse.json(product, { status: 200 });
 }
 
 export const PATCH = async (request: Request, { params }: { params: { productId: string } }) => {

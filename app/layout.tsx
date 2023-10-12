@@ -88,7 +88,7 @@ export default function RootLayout({
                   </summary>
                   <ul>
                     <li><a href='/transaksi/penjualan'>Penjualan</a></li>
-                    <li><a>Pembelian</a></li>
+                    <li><a href='/transaksi/pembelian'>Pembelian</a></li>
                   </ul>
                 </details>
               </li>

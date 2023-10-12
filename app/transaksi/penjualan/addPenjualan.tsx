@@ -3,7 +3,7 @@ import { SyntheticEvent, useState } from "react";
 import type { Pembeli, Product } from "@prisma/client"; // digunakan untuk memanggil model brand berdasrkan type yang sudah dibuat
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import AddPembeli from "./addPembeli";
+import AddPembeli from "../../customer/addCustomer";
 
 const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: Product[] }) => {
     const [pembeli, setPembeli] = useState("");
@@ -21,11 +21,11 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
         setIsOpen(!isOpen);
     }
 
-    const getProduct = async (e: SyntheticEvent) => {
-        e.preventDefault();
-        const productId = e;
-        // const res = await axios.get(`/api/products/${productId}`);
-        console.log(e.target);
+    async function getProduct (event: React.ChangeEvent<HTMLInputElement>) {
+        event.preventDefault();
+        const productId = event.target.value;
+        console.log(productId);
+        const res = await axios.get(`/api/products/${productId}`);
 
     }
 
@@ -88,7 +88,7 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
                             <select className="select select-bordered" onChange={getProduct}>
                                 <option value="" disabled>Pilih Produk</option>
                                 {products.map((product) => (
-                                    <option value={product.id} key={product.id}>{product.title}</option>
+                                    <option value={product.id} key={product.id}>{product.title} - {product.berat+' '+product.satuan}</option>
                                 ))}
                             </select>
                         </div>
