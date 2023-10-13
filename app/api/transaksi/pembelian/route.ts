@@ -5,8 +5,6 @@ const prisma = new PrismaClient();
 
 export const POST = async (request: Request) => {
     const body: Pembelian = await request.json();
-    console.log(body);
-    
     const pembelian = await prisma.pembelian.create({
         data: {
             nama_barang: body.nama_barang,

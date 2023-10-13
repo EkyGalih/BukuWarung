@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import AddPembelian from "./addPembelian";
+import UpdatePembelian from "./updatePembelian";
+import DeletePembelian from "./deletePembelian";
 
 const prisma = new PrismaClient();
 
@@ -37,6 +39,10 @@ const Pembelian = async () => {
                             <td>{item.harga_barang}</td>
                             <td>{item.keterangan}</td>
                             <td>{item.tgl_beli}</td>
+                            <td className="flex justify-center space-x-1">
+                                <UpdatePembelian pembelian={item} />
+                                <DeletePembelian pembelian={item} />
+                            </td>
                         </tr>
                     ))}
                 </tbody>

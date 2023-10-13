@@ -58,7 +58,7 @@ model Pembelian {
   nama_barang  String
   harga_barang Int
   keterangan   String
-  tgl_beli     String?
+  tgl_beli     String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

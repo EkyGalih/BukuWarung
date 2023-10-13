@@ -29,6 +29,10 @@ const AddCustomer = () => {
         setIsOpen(false);
     }
 
+    const handleAlert = () => {
+        setMsg('');
+    }
+
     return (
         <div>
             <button className="btn btn-primary btn-sm" onClick={handleModal}>
@@ -42,6 +46,13 @@ const AddCustomer = () => {
                 ? <div className="alert alert-success mt-5 mb-5">
                     <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     <span>{msg}</span>
+                    <div>
+                        <button className="btn btn-sm btn-link" onClick={handleAlert}>
+                            <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 : ''
             }
