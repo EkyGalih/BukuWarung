@@ -71,7 +71,7 @@ const AddPembelian = () => {
                         </div>
                         <div className="form-control w-full">
                             <label className="label font-bold">Tanggal Pembelian</label>
-                            <input type="text" className="input input-bordered" value={tgl_beli} onChange={(e) => setTanggal(e.target.value)} placeholder="Tanggal Transaksi" />
+                            <input type="date" className="input input-bordered" value={tgl_beli} onChange={(e) => setTanggal(e.target.value)} placeholder="Tanggal Transaksi" />
                         </div>
                         <div className="modal-action">
                             <button type="button" className="btn btn-error" onClick={handleModal}>

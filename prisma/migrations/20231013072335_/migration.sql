@@ -25,7 +25,9 @@ CREATE TABLE "Product" (
 CREATE TABLE "Pembeli" (
     "id" TEXT NOT NULL,
     "nama_pembeli" TEXT NOT NULL,
-    "no_hp" INTEGER NOT NULL,
+    "no_hp" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Pembeli_pkey" PRIMARY KEY ("id")
 );
@@ -51,7 +53,8 @@ CREATE TABLE "Pembelian" (
     "nama_barang" TEXT NOT NULL,
     "harga_barang" INTEGER NOT NULL,
     "keterangan" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL,
+    "tgl_beli" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Pembelian_pkey" PRIMARY KEY ("id")
