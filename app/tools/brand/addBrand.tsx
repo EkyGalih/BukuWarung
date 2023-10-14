@@ -2,11 +2,10 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { SyntheticEvent, useState } from "react"
+import { SyntheticEvent, useState } from "react";
 
-const AddCustomer = () => {
-    const [nama, setNama] = useState("");
-    const [nohp, setNoHp] = useState("");
+const AddBrand = () => {
+    const [nama_brand, setNamaBrand] = useState("");
     const [msg, setMsg] = useState("");
     const [isOpen, setIsOpen] = useState(false);
 
@@ -14,32 +13,30 @@ const AddCustomer = () => {
 
     const handleModal = () => {
         setIsOpen(!isOpen);
-    }
+    };
 
-    const saveCustomer = async (e: SyntheticEvent) => {
+    const saveBrand = async (e: SyntheticEvent) => {
         e.preventDefault();
-        await axios.post('/api/customer', {
-            nama_pembeli: nama,
-            no_hp: nohp
-        })
-        setNama("");
-        setNoHp("");
-        setMsg("Customer berhasil ditambahkan!");
+        await axios.post('/api/brand', {
+            name: nama_brand
+        });
+        setNamaBrand("");
+        setMsg("Brand berhasil dibuat!");
         router.refresh();
         setIsOpen(false);
     }
 
     const handleAlert = () => {
-        setMsg('');
-    }
+        setMsg("");
+    };
 
     return (
         <div>
             <button className="btn btn-primary btn-sm" onClick={handleModal}>
-                <svg className="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                    <path d="M6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Zm11-3h-2V5a1 1 0 0 0-2 0v2h-2a1 1 0 1 0 0 2h2v2a1 1 0 0 0 2 0V9h2a1 1 0 1 0 0-2Z" />
+                <svg className="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z" />
                 </svg>
-                Tambah Customer
+                Tambah Brand
             </button>
 
             {msg !== ''
@@ -60,16 +57,12 @@ const AddCustomer = () => {
             <div className={isOpen ? 'modal modal-open' : 'modal'}>
                 <div className="modal-box">
                     <h3 className="font-bold text-lg mb-3">
-                        Tambah Customer
+                        Tambah Brand
                     </h3>
-                    <form onSubmit={saveCustomer}>
+                    <form onSubmit={saveBrand}>
                         <div className="form-control w-full">
-                            <label className="label font-bold">Nama Customer</label>
-                            <input type="text" className="input input-bordered" value={nama} onChange={(e) => setNama(e.target.value)} placeholder="Nama Pembeli" />
-                        </div>
-                        <div className="form-control w-full">
-                            <label className="label font-bold">Nomor HP</label>
-                            <input type="number" className="input input-bordered" value={nohp} onChange={(e) => setNoHp(e.target.value)} placeholder="Nama Pembeli" />
+                            <label className="label font-bold">Nama Brand</label>
+                            <input type="text" className="input input-bordered" value={nama_brand} onChange={(e) => setNamaBrand(e.target.value)} placeholder="Nama Brand" />
                         </div>
                         <div className="modal-action">
                             <button type="button" className="btn btn-error" onClick={handleModal}>
@@ -78,7 +71,7 @@ const AddCustomer = () => {
                                 </svg>
                                 CLose
                             </button>
-                            <button type="submit" className="btn btn-primary">
+                            <button type="submit" className="btn btn-success">
                                 <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                     <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
                                 </svg>
@@ -92,4 +85,4 @@ const AddCustomer = () => {
     )
 }
 
-export default AddCustomer
+export default AddBrand
