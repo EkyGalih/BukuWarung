@@ -42,7 +42,7 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
 
     const addBarang = (e: SyntheticEvent) => {
        var barang = [...daftarBarang];
-        barang = [...daftarBarang, namaBarang: produk];
+        barang = [...daftarBarang, produk];
         setProduk(barang);
         console.log(harga);
         

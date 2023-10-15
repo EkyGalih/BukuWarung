@@ -4,7 +4,7 @@ export const metadata = {
 
 const ProductLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="py-10 px-10">{children}</div>
+        <div className="py-2 px-2">{children}</div>
     )
 }
 

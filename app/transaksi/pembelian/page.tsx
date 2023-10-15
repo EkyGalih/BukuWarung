@@ -36,7 +36,7 @@ const Pembelian = async () => {
                         <tr key={item.id}>
                             <td>{index + 1}</td>
                             <td>{item.nama_barang}</td>
-                            <td>{item.harga_barang}</td>
+                            <td>{item.harga_barang.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}</td>
                             <td>{item.keterangan}</td>
                             <td>{item.tgl_beli}</td>
                             <td className="flex justify-center space-x-1">
