@@ -24,7 +24,7 @@ const Brand = async () => {
                         <th>#</th>
                         <th>Nama Brand</th>
                         <th>Jumlah produk</th>
-                        <th></th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,8 +32,8 @@ const Brand = async () => {
                         <tr key={brand.id}>
                             <td>{index + 1}</td>
                             <td>{brand.name}</td>
-                            <td></td>
-                            <td className="flex justify-center space-x-1">
+                            <td>{}</td>
+                            <td className="flex space-x-1">
                                 <UpdateBrand brand={brand}/>
                                 <DeleteBrand brand={brand}/>
                             </td>

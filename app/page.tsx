@@ -54,7 +54,7 @@ const Home = async () => {
         <div className="card w-96 bg-base-100 shadow-xl mr-2">
           <div className="card-body">
             <h2 className="card-title">Pembelian</h2>
-            <p>Total Belanja Bulan Ini adalah : {Belanja}</p>
+            <p>Total Belanja Bulan Ini adalah : {Belanja ?? 0}</p>
             <div className="card-actions justify-end">
               <a href="/transaksi/pembelian" className="btn btn-error btn-sm">Detail</a>
             </div>

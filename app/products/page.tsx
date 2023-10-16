@@ -54,7 +54,16 @@ const Product = async () => {
                             <td>{product.berat}/{product.satuan}</td>
                             <td>{product.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}</td>
                             <td>{product.Sold}</td>
-                            <td>{product.brand.name}</td>
+                            <td>
+                                {product.brand.name === 'Sambal'
+                                    ? <span className="badge badge-error">{product.brand.name}</span>
+                                    : product.brand.name === 'Makanan'
+                                        ? <span className="badge badge-warning">{product.brand.name}</span>
+                                        : product.brand.name === 'Minuman'
+                                            ? <span className="badge badge-info">{product.brand.name}</span>
+                                            : ''
+                                }
+                            </td>
                             <td className="flex justify-center space-x-1">
                                 <UpdateProduct brands={brands} product={product} />
                                 <DeleteProduct product={product} />
