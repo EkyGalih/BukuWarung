@@ -31,12 +31,18 @@ const getPembeli = async () => {
 };
 
 const Penjualan = async () => {
-    const [penjualans, pembelis, products] = await Promise.all([getPenjualan(), getPembeli(), getProducts()]);
+    const [penjualans, customers, products] = await Promise.all([getPenjualan(), getPembeli(), getProducts()]);
 
     return (
         <div>
             <div className="mb-2">
-                <AddPenjualan pembelis={pembelis} products={products} />
+                {/* <AddPenjualan pembelis={pembelis} products={products} /> */}
+                <a href="/transaksi/penjualan/add" className="btn btn-primary">
+                    <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z" />
+                    </svg>
+                    Tambah Data
+                </a>
             </div>
 
             <table className="table w-full">
@@ -52,7 +58,7 @@ const Penjualan = async () => {
                 </thead>
                 <tbody>
                     {penjualans.map((penjualan, index) => (
-                        <tr key={index}>    
+                        <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{penjualan.pembeli.nama_pembeli}</td>
                             <td>{penjualan.tgl_jual}</td>

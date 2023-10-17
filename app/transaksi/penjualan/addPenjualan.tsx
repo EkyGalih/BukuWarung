@@ -13,6 +13,7 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
     const [qty, setQty] = useState("");
     const [total, setTotal] = useState(0);
     const [tglJual, setTglJual] = useState("");
+    const [stausBayar, setStatusBayar] = useState("belum lunas")
     const [keterangan, setKeterangan] = useState("");
     const [msg, setMsg] = useState("");
     const [isOpen, setIsOpen] = useState(false);
@@ -35,12 +36,10 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
 
     const jumlahBarang = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setQty(e.target.value);
-
     }
 
     const ketBarang = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setKeterangan(e.target.value);
-
     }
 
     const addBarang = (e: SyntheticEvent) => {
@@ -70,10 +69,13 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
         }
         setPembeli("");
         setProduk("");
+        setIdProduk("");
         setHarga(0);
         setQty("");
         setTotal(0);
+        setTglJual("");
         setKeterangan("");
+        setSubProduk([]);
         setMsg("Data Penjualan ditambahkan!");
         router.refresh();
         setIsOpen(false);
@@ -176,6 +178,10 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
                                 </tr>
                             </tbody>
                         </table>
+                        <div className="form-control w-full">
+                            <label className="label font-bold">Status Pembayaran</label>
+                            <input type="checkbox" className="toggle" value={stausBayar} onChange={(e) => setStatusBayar(e.target.value)} />
+                        </div>
                         <div className="modal-action">
                             <button type="button" className="btn btn-error" onClick={handleModal}>
                                 <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
