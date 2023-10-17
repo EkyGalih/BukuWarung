@@ -26,6 +26,11 @@ const getTotalJual = async () => {
 
 const Home = async () => {
   const [totalBelanja, totalJual] = await Promise.all([getTotalBelanja(), getTotalJual()]);
+  const Penjualan = totalJual._sum.harga_barang?.toLocaleString('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0
+  });
   const Belanja = totalBelanja._sum.harga_barang?.toLocaleString('id-ID', {
     style: 'currency',
     currency: 'IDR',
@@ -44,7 +49,7 @@ const Home = async () => {
         <div className="card w-96 bg-base-100 shadow-xl mr-2">
           <div className="card-body">
             <h2 className="card-title">Penjualan</h2>
-            <p>Jumlah Penjualan Bulan ini adalah : {totalJual._sum.harga_barang ?? 0}</p>
+            <p>Jumlah Penjualan Bulan ini adalah : {Penjualan ?? 0}</p>
             <div className="card-actions justify-end">
               <a href="/transaksi/penjualan" className="btn btn-success btn-sm">Detail</a>
             </div>

@@ -8,13 +8,15 @@ import AddPembeli from "../../tools/customer/addCustomer";
 const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: Product[] }) => {
     const [pembeli, setPembeli] = useState("");
     const [produk, setProduk] = useState("");
+    const [idProduk, setIdProduk] = useState("");
     const [harga, setHarga] = useState(0);
     const [qty, setQty] = useState("");
     const [total, setTotal] = useState(0);
+    const [tglJual, setTglJual] = useState("");
     const [keterangan, setKeterangan] = useState("");
     const [msg, setMsg] = useState("");
     const [isOpen, setIsOpen] = useState(false);
-    const [daftarBarang, setSubProduk] = useState([]);
+    const [daftarBarang, setSubProduk] = useState<any[]>([]);
 
     const router = useRouter();
 
@@ -27,6 +29,7 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
         const productId = event.target.value;
         const res = await axios.get(`/api/products/${productId}`);
         setHarga(res.data.price);
+        setIdProduk(res.data.id);
         setProduk(res.data.title);
     };
 
@@ -41,30 +44,37 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
     }
 
     const addBarang = (e: SyntheticEvent) => {
-       var barang = [...daftarBarang];
-        barang = [...daftarBarang, produk];
-        setProduk(barang);
-        console.log(harga);
-        
+        var barang = [...daftarBarang];
+        let array = { idProduk: idProduk, nproduk: produk, nharga: harga, nqty: qty, nket: keterangan };
+        if (array) {
+            barang = [...daftarBarang, array];
+        } else {
+            barang.splice(daftarBarang.indexOf(array), 1);
+        }
+        setSubProduk(barang);
+        setTotal(barang.reduce((a, v) => a = a + v.nharga, 0));
     }
 
     const saveProduct = async (e: SyntheticEvent) => {
         e.preventDefault();
-        await axios.post('/api/transaksi/penjualan', {
-            pembeliId: pembeli,
-            produkId: produk,
-            harga: Number(harga),
-            qty: Number(qty),
-            total: Number(total),
-            keterangan: keterangan,
-        })
+        for (const item of daftarBarang) {
+            await axios.post('/api/transaksi/penjualan', {
+                pembeliId: pembeli,
+                productId: item.idProduk,
+                harga_barang: Number(item.nharga),
+                quantity: Number(item.nqty),
+                total_price: Number(total),
+                keterangan: item.nket,
+                tgl_jual: tglJual
+            })
+        }
         setPembeli("");
         setProduk("");
         setHarga(0);
         setQty("");
         setTotal(0);
         setKeterangan("");
-        setMsg("Produk berhasil ditambahkan!");
+        setMsg("Data Penjualan ditambahkan!");
         router.refresh();
         setIsOpen(false);
     };
@@ -93,7 +103,7 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
                     <hr />
                     <AddPembeli />
                     <form onSubmit={saveProduct}>
-                        <div className="form-control w-full">
+                        <div className="form-control join-item mr-1">
                             <label className="label font-bold">Nama Pembeli</label>
                             <select className="select select-bordered" value={pembeli} onChange={(e) => setPembeli(e.target.value)}>
                                 <option value="" disabled>Pilih pembeli</option>
@@ -101,6 +111,10 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
                                     <option value={item.id} key={item.id}>{item.nama_pembeli}</option>
                                 ))}
                             </select>
+                        </div>
+                        <div className="form-control join-item">
+                            <label className="label font-bold">Tanggal Transaksi</label>
+                            <input type="date" value={tglJual} onChange={(e => setTglJual(e.target.value))} className="input input-bordered" placeholder="Tgl Beli" />
                         </div>
                         <div className="join">
                             <div className="form-control w-full mr-1">
@@ -118,7 +132,7 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
                             </div>
                             <div className="form-control w-full mr-1">
                                 <label className="label font-bold">Jumlah</label>
-                                <input type="text" onChange={jumlahBarang} className="input input-bordered" placeholder="Jumlah" />
+                                <input type="number" onChange={jumlahBarang} className="input input-bordered" placeholder="Jumlah" />
                             </div>
                             <div className="form-control w-full">
                                 <label className="label font-bold">Keterangan</label>
@@ -148,14 +162,18 @@ const AddPenjualan = ({ pembelis, products }: { pembelis: Pembeli[], products: P
                                 {daftarBarang.map((item, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{item.nproduk}</td>
+                                        <td>{item.nharga.toLocaleString('id-ID', { style: 'currency', currency: "IDR", minimumFractionDigits: 0 })}</td>
+                                        <td>{item.nqty}</td>
+                                        <td>{(item.nqty * item.nharga).toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}</td>
+                                        <td>{item.nket}</td>
                                         <td></td>
                                     </tr>
                                 ))}
+                                <tr>
+                                    <td colSpan={4} className="font-bold">Total</td>
+                                    <td className="font-bold">{daftarBarang.reduce((a, v) => a = a + v.nharga, 0).toLocaleString('id-ID', { style: 'currency', currency: "IDR", minimumFractionDigits: 0 })}</td>
+                                </tr>
                             </tbody>
                         </table>
                         <div className="modal-action">

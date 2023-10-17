@@ -4,7 +4,12 @@ import AddPenjualan from "./addPenjualan";
 const prisma = new PrismaClient();
 
 const getPenjualan = async () => {
-    const res = await prisma.penjualan.findMany();
+    const res = await prisma.penjualan.findMany({
+        include: {
+            pembeli: true,
+            product: true
+        }
+    });
     return res;
 };
 
@@ -49,8 +54,9 @@ const Penjualan = async () => {
                     {penjualans.map((penjualan, index) => (
                         <tr key={index}>    
                             <td>{index + 1}</td>
-                            <td>{}</td>
-                            <td>{}</td>
+                            <td>{penjualan.pembeli.nama_pembeli}</td>
+                            <td>{penjualan.tgl_jual}</td>
+                            <td>{penjualan.product.title}</td>
                             <td>{penjualan.keterangan}</td>
                             <td className="flex justify-center space-x-1">
                                 {/* <UpdateProduct brands={brands} product={product} />

@@ -40,8 +40,9 @@ CREATE TABLE "Penjualan" (
     "harga_barang" INTEGER NOT NULL DEFAULT 0,
     "quantity" INTEGER NOT NULL DEFAULT 0,
     "total_price" INTEGER NOT NULL DEFAULT 0,
+    "tgl_jual" TEXT NOT NULL,
     "keterangan" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Penjualan_pkey" PRIMARY KEY ("id")
@@ -53,7 +54,7 @@ CREATE TABLE "Pembelian" (
     "nama_barang" TEXT NOT NULL,
     "harga_barang" INTEGER NOT NULL,
     "keterangan" TEXT NOT NULL,
-    "tgl_beli" TEXT,
+    "tgl_beli" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
